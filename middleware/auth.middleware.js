@@ -8,13 +8,19 @@ import { verifyJwt } from "../utils/verifyJWT.js";
  */
 
 
-function authenticationMiddleware(req, res, next) {
-    const authHeader = req.header['authorization'];
+export function  authenticationMiddleware(req, res, next) {
+    console.log("uggv");
+    const authHeader = req.headers['authorization'];
+
+    console.log(authHeader);
 
     if(!authHeader) return next();
+
+
+    console.log("iyvyg");
         
     
-    if(!authHeader.startsWith('Bearer')){
+    if(!authHeader.startsWith('Bearer ')){
         return res.status(400).json({error : "header is required"});
     }
 
@@ -22,8 +28,9 @@ function authenticationMiddleware(req, res, next) {
 
     const payload = verifyJwt(token);
 
+    console.log("uigyfyf");
+
     req.user = payload;
     next();
 }
 
-export default authenticationMiddleware;
